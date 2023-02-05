@@ -4,7 +4,7 @@ project(SLib)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Wfloat-equal -Wundef -Wcast-align -Wwrite-strings -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual")
 set(CMAKE_CXX_STANDARD 20)
 
-add_library(SLib include/SLib/SLib.h src/SLog.cpp include/SLib/SLog.h include/SLib/SVector.h)
+add_library(SLib include/SLib/SLib.h src/SLog.cpp include/SLib/SLog.h include/SLib/SVector.h include/SLib/SException.h)
 
 include_directories(include)
 

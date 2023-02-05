@@ -8,6 +8,8 @@
 #include <cstdint>
 #include <algorithm>
 
+#include "SException.h"
+
 namespace slib {
 
     template<typename T>
@@ -92,7 +94,7 @@ namespace slib {
 
         void pop_back(){
             if (m_size == 0){
-                throw std::runtime_error("Can't pop_back SVector with length 0");
+                throw SException("Can't pop_back SVector with length 0");
             }
 
             m_size--;
