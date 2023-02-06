@@ -100,12 +100,7 @@ namespace slib {
         }
 
         void push_back(const T& item){
-            if(m_capacity - m_size == 0){
-                reserve(m_capacity * 2);
-            }
-
-            m_ptr[m_size] = item;
-            m_size++;
+            emplace_back(item);
         }
 
         void pop_back(){
@@ -156,6 +151,26 @@ namespace slib {
 
         const T& back() const{
             return m_ptr[m_size - 1];
+        }
+
+        template<typename... Args>
+        void emplace_back(Args&&... args){
+            if(m_capacity == m_size){
+                reserve(m_capacity * 2);
+            }
+
+            m_ptr[m_size] = new T(std::forward<Args>(args)...);
+            m_size++;
+        }
+
+        void shrink_to_fit(){
+            size_type tmp_capacity = m_size;
+            T *tmp_ptr = new T[tmp_capacity];
+            std::copy(m_ptr, m_ptr + m_capacity, tmp_ptr);
+            delete[] m_ptr;
+
+            m_capacity = tmp_capacity;
+            m_ptr = tmp_ptr;
         }
     private:
         T *m_ptr;
