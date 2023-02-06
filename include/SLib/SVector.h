@@ -159,7 +159,7 @@ namespace slib {
                 reserve(m_capacity * 2);
             }
 
-            m_ptr[m_size] = new T(std::forward<Args>(args)...);
+            m_ptr[m_size] = *new T(std::forward<Args>(args)...);
             m_size++;
         }
 
