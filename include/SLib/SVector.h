@@ -83,6 +83,22 @@ namespace slib {
             return m_ptr[index];
         }
 
+        const T &at(size_type index) const {
+            if (index < 0 || index >= m_size){
+                throw SException("Out of range in SVector.");
+            }
+
+            return m_ptr[index];
+        }
+
+        T &at(size_type index) {
+            if (index < 0 || index >= m_size){
+                throw SException("Out of range in SVector.");
+            }
+
+            return m_ptr[index];
+        }
+
         void push_back(const T& item){
             if(m_capacity - m_size == 0){
                 reserve(m_capacity * 2);
@@ -126,6 +142,21 @@ namespace slib {
             m_ptr = tmp_ptr;
         }
 
+        T& front() {
+            return m_ptr[0];
+        }
+
+        const T& front() const{
+            return m_ptr[0];
+        }
+
+        T& back(){
+            return m_ptr[m_size - 1];
+        }
+
+        const T& back() const{
+            return m_ptr[m_size - 1];
+        }
     private:
         T *m_ptr;
         size_type m_size = 0;
