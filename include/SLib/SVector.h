@@ -26,10 +26,15 @@ namespace slib {
         }
 
         SVector(const SVector &other) {
-            m_size = other.m_size;
-            m_capacity = other.m_capacity;
-            m_ptr = new T[m_capacity];
-            std::copy(other.m_ptr, other.m_ptr + m_capacity, m_ptr);
+            reserve(other.m_capacity);
+            resize(other.m_size);
+
+            try{
+                std::uninitialized_copy(other.m_ptr, other.m_ptr + other.m_size, m_ptr);
+            }catch(...){
+                delete[] reinterpret_cast<uint8_t*>(m_ptr);
+                throw;
+            }
         }
 
         SVector(SVector &&other) noexcept {
