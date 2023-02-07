@@ -115,9 +115,13 @@ namespace slib {
             return m_size;
         }
 
-        void resize(size_type size){
+        void resize(size_type size, const T& value = T()){
             if (size > m_capacity){
                 reserve(size);
+            }
+
+            for (int i = m_size; i < size; ++i) {
+                new(m_ptr + i) T(value);
             }
 
             m_size = size;
@@ -129,9 +133,25 @@ namespace slib {
             }
 
             size_type tmp_capacity = capacity;
-            T *tmp_ptr = new T[tmp_capacity];
-            std::copy(m_ptr, m_ptr + m_capacity, tmp_ptr);
-            delete[] m_ptr;
+            T *tmp_ptr = reinterpret_cast<T*>(new uint8_t[capacity * sizeof(T)]);
+
+            size_type i = 0;
+            try{
+                for (; i < size(); ++i) {
+                    new(tmp_ptr + i) T(m_ptr(i));
+                }
+            }catch(...){
+                for (size_type j = 0; j < i; ++j) {
+                    (tmp_ptr + j)->~T();
+                }
+                delete[] reinterpret_cast<uint8_t*>(tmp_ptr);
+                throw;
+            }
+
+            for (size_type j = 0; j < size(); ++j) {
+                (m_ptr + j)->~T();
+            }
+            delete[] reinterpret_cast<uint8_t*>(m_ptr);
 
             m_capacity = tmp_capacity;
             m_ptr = tmp_ptr;
@@ -159,7 +179,7 @@ namespace slib {
                 reserve(m_capacity * 2);
             }
 
-            m_ptr[m_size] = *new T(std::forward<Args>(args)...);
+            new(m_ptr + m_size) T(std::forward<Args>(args)...);
             m_size++;
         }
 
