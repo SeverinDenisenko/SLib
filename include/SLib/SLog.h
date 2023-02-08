@@ -6,7 +6,6 @@
 #define SLIB_SLOG_H
 
 #include <string>
-#include <array>
 
 namespace slib {
 
@@ -26,8 +25,6 @@ namespace slib {
         void Log(LogLevel level, const std::string& msg) const;
 
         LogLevel logLevel;
-    private:
-        std::array<std::string, 5> levelStrings = {"[FATAL]: ", "[ERROR]: ", "[WARNING]: ", "[INFO]: ", "[TRACE]: "};
     };
 
     inline SLog slog;
