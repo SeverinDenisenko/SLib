@@ -12,10 +12,12 @@
 
 namespace slib {
 
-    template<typename T>
+    template<typename U>
     class SVectorIterator{
     public:
-        explicit SVectorIterator(T* ptr) : m_ptr(ptr) {}
+        using value_type = typename U::value_type;
+
+        explicit SVectorIterator(value_type* ptr) : m_ptr(ptr) {}
 
         SVectorIterator& operator++(){
             m_ptr++;
@@ -39,27 +41,27 @@ namespace slib {
             return i;
         }
 
-        T& operator[](size_t i){
+        value_type& operator[](size_t i){
             return m_ptr[i];
         }
 
-        const T& operator[](size_t i) const{
+        const value_type& operator[](size_t i) const{
             return m_ptr[i];
         }
 
-        T* operator->(){
+        value_type* operator->(){
             return m_ptr;
         }
 
-        const T* operator->() const{
+        const value_type* operator->() const{
             return m_ptr;
         }
 
-        T& operator*(){
+        value_type& operator*(){
             return *m_ptr;
         }
 
-        const T& operator*() const{
+        const value_type& operator*() const{
             return *m_ptr;
         }
 
@@ -71,13 +73,14 @@ namespace slib {
             return m_ptr != other.m_ptr;
         }
     private:
-        T* m_ptr;
+        value_type* m_ptr;
     };
 
     template<typename T>
     class SVector {
     public:
         using size_type = size_t;
+        using value_type = T;
 
         SVector() {
             m_ptr = reinterpret_cast<T *>(new uint8_t[m_capacity * sizeof(T)]);
@@ -289,12 +292,12 @@ namespace slib {
             m_capacity = tmp_capacity;
         }
 
-        SVectorIterator<T> begin(){
-            return SVectorIterator(m_ptr);
+        SVectorIterator<SVector<T>> begin(){
+            return SVectorIterator<SVector<T>>(m_ptr);
         }
 
-        SVectorIterator<T> end(){
-            return SVectorIterator(m_ptr + m_size);
+        SVectorIterator<SVector<T>> end(){
+            return SVectorIterator<SVector<T>>(m_ptr + m_size);
         }
     private:
         void _delete() {

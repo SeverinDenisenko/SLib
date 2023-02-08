@@ -11,9 +11,67 @@
 namespace slib {
 
     template<typename T>
+    class SListIterator{
+    public:
+        using value_type = typename T::value_type;
+        using node_type = typename T::Node;
+
+        explicit SListIterator(node_type* node): m_node(node) {}
+
+        SListIterator& operator++(){
+            m_node = m_node->next;
+            return *this;
+        }
+
+        SListIterator operator++(int){
+            SListIterator i = *this;
+            ++(*this);
+            return i;
+        }
+
+        SListIterator& operator--(){
+            m_node = m_node->prev;
+            return *this;
+        }
+
+        SListIterator operator--(int){
+            SListIterator i = *this;
+            --(*this);
+            return i;
+        }
+
+        value_type* operator->(){
+            return *(m_node->value);
+        }
+
+        const value_type* operator->() const{
+            return *(m_node->value);
+        }
+
+        value_type& operator*(){
+            return m_node->value;
+        }
+
+        const value_type& operator*() const{
+            return m_node->value;
+        }
+
+        bool operator==(const SListIterator& other) const{
+            return m_node == other.m_node;
+        }
+
+        bool operator!=(const SListIterator& other) const{
+            return m_node != other.m_node;
+        }
+    private:
+        node_type* m_node;
+    };
+
+    template<typename T>
     class SList {
     public:
-        using size_type = uint32_t;
+        using size_type = size_t;
+        using value_type = T;
 
         SList(){
             m_head = reinterpret_cast<Node*>(new uint8_t[sizeof(Node)]);
@@ -115,19 +173,27 @@ namespace slib {
         }
 
         T& front(){
-            return m_head->next;
+            return m_head->next->value;
         }
 
         T& back(){
-            return m_head->prev;
+            return m_head->prev->value;
         }
-    private:
+
+        SListIterator<SList<T>> begin(){
+            return SListIterator<SList<T>>(m_head->next);
+        }
+
+        SListIterator<SList<T>> end(){
+            return SListIterator<SList<T>>(m_head);
+        }
+
         struct Node{
             Node* prev;
             Node* next;
             T value;
         };
-
+    private:
         Node* m_head = nullptr;
         size_type m_size = 0;
     };
