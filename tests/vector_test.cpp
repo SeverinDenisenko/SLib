@@ -24,4 +24,6 @@ int main(){
     vector1.resize(1000);
 
     vector1.shrink_to_fit();
+
+    return 0;
 }

@@ -14,3 +14,5 @@ target_link_libraries(test_log SLib)
 add_executable(test_vector tests/vector_test.cpp)
 target_link_libraries(test_vector SLib)
 
+add_executable(test_list tests/test_list.cpp)
+target_link_libraries(test_list SLib)
