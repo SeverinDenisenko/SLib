@@ -23,6 +23,10 @@ int main(){
 
     vector1.resize(1000);
 
+    for (auto &item: vector1) {
+        S_INFO(std::to_string(item));
+    }
+
     vector1.shrink_to_fit();
 
     return 0;

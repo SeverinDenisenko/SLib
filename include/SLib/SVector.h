@@ -13,9 +13,71 @@
 namespace slib {
 
     template<typename T>
+    class SVectorIterator{
+    public:
+        explicit SVectorIterator(T* ptr) : m_ptr(ptr) {}
+
+        SVectorIterator& operator++(){
+            m_ptr++;
+            return *this;
+        }
+
+        SVectorIterator operator++(int){
+            SVectorIterator i = *this;
+            ++(*this);
+            return i;
+        }
+
+        SVectorIterator& operator--(){
+            m_ptr--;
+            return *this;
+        }
+
+        SVectorIterator operator--(int){
+            SVectorIterator i = *this;
+            --(*this);
+            return i;
+        }
+
+        T& operator[](size_t i){
+            return m_ptr[i];
+        }
+
+        const T& operator[](size_t i) const{
+            return m_ptr[i];
+        }
+
+        T* operator->(){
+            return m_ptr;
+        }
+
+        const T* operator->() const{
+            return m_ptr;
+        }
+
+        T& operator*(){
+            return *m_ptr;
+        }
+
+        const T& operator*() const{
+            return *m_ptr;
+        }
+
+        bool operator==(const SVectorIterator& other) const{
+            return m_ptr == other.m_ptr;
+        }
+
+        bool operator!=(const SVectorIterator& other) const{
+            return m_ptr != other.m_ptr;
+        }
+    private:
+        T* m_ptr;
+    };
+
+    template<typename T>
     class SVector {
     public:
-        using size_type = uint32_t;
+        using size_type = size_t;
 
         SVector() {
             m_ptr = reinterpret_cast<T *>(new uint8_t[m_capacity * sizeof(T)]);
@@ -227,6 +289,13 @@ namespace slib {
             m_capacity = tmp_capacity;
         }
 
+        SVectorIterator<T> begin(){
+            return SVectorIterator(m_ptr);
+        }
+
+        SVectorIterator<T> end(){
+            return SVectorIterator(m_ptr + m_size);
+        }
     private:
         void _delete() {
             for (size_type j = 0; j < m_size; ++j) {
