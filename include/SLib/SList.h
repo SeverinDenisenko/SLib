@@ -21,6 +21,35 @@ namespace slib {
             m_head->next = m_head;
         }
 
+        SList(SList&& other) noexcept {
+            m_head = other.m_head;
+            other.m_head = nullptr;
+            m_size = other.m_size;
+        }
+
+        /* TODO
+        SList(const SList& other){
+
+        }
+        */
+
+        /* TODO
+        SList& operator=(const SList& other){
+
+        }
+        */
+
+        SList& operator=(SList&& other) noexcept {
+            if (this == &other)
+                return *this;
+
+            m_head = other.m_head;
+            other.m_head = nullptr;
+            m_size = other.m_size;
+
+            return *this;
+        }
+
         void push_back(const T& item){
             emplace_back(item);
         }
@@ -43,6 +72,7 @@ namespace slib {
             }
             m_head->prev->next = ptr;
             m_head->prev = ptr;
+            m_size++;
         }
 
         template<typename... Args>
@@ -59,6 +89,7 @@ namespace slib {
             }
             m_head->next->prev = ptr;
             m_head->next = ptr;
+            m_size++;
         }
 
         void pop_back(){
@@ -67,6 +98,7 @@ namespace slib {
             m_head->prev->value.~T();
             m_head->prev = m_head->prev->prev;
             m_head->prev->next = m_head;
+            m_size--;
 
             delete[] reinterpret_cast<uint8_t *>(tmp_ptr);
         }
@@ -77,6 +109,7 @@ namespace slib {
             m_head->next->value.~T();
             m_head->next = m_head->next->next;
             m_head->next->prev = m_head;
+            m_size--;
 
             delete[] reinterpret_cast<uint8_t *>(tmp_ptr);
         }
