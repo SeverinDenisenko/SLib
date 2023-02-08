@@ -12,11 +12,16 @@ int main(){
 
     for (int i = 0; i < 100; ++i) {
         vector.push_back(i);
-        S_INFO("Push value: " + std::to_string(vector[i]));
     }
 
-    slib::SVector<int> vector1 = vector;
+    slib::SVector<int> vector1(vector);
     slib::SVector<int> vector2(vector);
 
+    for (int i = 0; i < 100; ++i) {
+        vector1.emplace_back(i + 100);
+    }
+
     vector1.resize(1000);
+
+    vector1.shrink_to_fit();
 }

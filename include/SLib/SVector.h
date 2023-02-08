@@ -6,9 +6,9 @@
 #define SLIB_SVECTOR_H
 
 #include <cstdint>
-#include <algorithm>
 
 #include "SException.h"
+#include "SLog.h"
 
 namespace slib {
 
@@ -27,7 +27,6 @@ namespace slib {
 
         SVector(const SVector &other) {
             reserve(other.m_capacity);
-            resize(other.m_size);
 
             try{
                 std::uninitialized_copy(other.m_ptr, other.m_ptr + other.m_size, m_ptr);
@@ -35,6 +34,8 @@ namespace slib {
                 delete[] reinterpret_cast<uint8_t*>(m_ptr);
                 throw;
             }
+
+            m_size = other.m_size;
         }
 
         SVector(SVector &&other) noexcept {
@@ -49,7 +50,6 @@ namespace slib {
                 return *this;
 
             reserve(other.m_capacity);
-            resize(other.m_size);
 
             try{
                 std::uninitialized_copy(other.m_ptr, other.m_ptr + other.m_size, m_ptr);
@@ -57,6 +57,8 @@ namespace slib {
                 delete[] reinterpret_cast<uint8_t*>(m_ptr);
                 throw;
             }
+
+            m_size = other.m_size;
 
             return *this;
         };
@@ -68,7 +70,12 @@ namespace slib {
             m_capacity = other.m_capacity;
             m_size = other.m_size;
 
-            delete[] m_ptr;
+            for (size_type j = 0; j < m_size; ++j) {
+                (m_ptr + j)->~T();
+            }
+
+            delete[] reinterpret_cast<uint8_t*>(m_ptr);
+
             m_ptr = other.m_ptr;
             other.m_ptr = nullptr;
 
@@ -141,7 +148,6 @@ namespace slib {
             if (m_capacity >= capacity)
                 return;
 
-            size_type tmp_capacity = capacity;
             T *tmp_ptr = reinterpret_cast<T*>(new uint8_t[capacity * sizeof(T)]);
 
             try{
@@ -156,7 +162,7 @@ namespace slib {
             }
             delete[] reinterpret_cast<uint8_t*>(m_ptr);
 
-            m_capacity = tmp_capacity;
+            m_capacity = capacity;
             m_ptr = tmp_ptr;
         }
 
@@ -190,8 +196,7 @@ namespace slib {
             if (m_capacity == m_size)
                 return;
 
-            size_type tmp_capacity = m_size;
-            T *tmp_ptr = reinterpret_cast<T*>(new uint8_t[tmp_capacity * sizeof(T)]);
+            T *tmp_ptr = reinterpret_cast<T*>(new uint8_t[m_size * sizeof(T)]);
 
             try{
                 std::uninitialized_copy(m_ptr, m_ptr + m_size, tmp_ptr);
@@ -205,7 +210,7 @@ namespace slib {
             }
             delete[] reinterpret_cast<uint8_t*>(m_ptr);
 
-            m_capacity = tmp_capacity;
+            m_capacity = m_size;
             m_ptr = tmp_ptr;
         }
 
@@ -240,7 +245,7 @@ namespace slib {
             m_capacity = tmp_capacity;
         }
     private:
-        T *m_ptr;
+        T *m_ptr = nullptr;
         size_type m_size = 0;
         size_type m_capacity = 10;
     };
