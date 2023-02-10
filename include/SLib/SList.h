@@ -63,7 +63,7 @@ namespace slib {
         bool operator!=(const SListIterator& other) const{
             return m_node != other.m_node;
         }
-    private:
+
         node_type* m_node;
     };
 
@@ -150,6 +150,26 @@ namespace slib {
             m_size++;
         }
 
+        template<typename... Args>
+        void insert(SListIterator<SList<T>> place, Args &&... args){
+            Node* place_ptr = place.m_node;
+
+            Node *ptr = reinterpret_cast<Node *>(new uint8_t[sizeof(Node)]);
+
+            ptr->prev = place_ptr;
+            ptr->next = place_ptr->next;
+            try {
+                new(&(ptr->value)) T(std::forward<Args>(args)...);
+            } catch (...) {
+                delete[] reinterpret_cast<uint8_t *>(ptr);
+                throw;
+            }
+
+            place_ptr->next->prev = ptr;
+            place_ptr->next = ptr;
+            m_size++;
+        }
+
         void pop_back(){
             Node* tmp_ptr = m_head->prev;
 
@@ -185,7 +205,7 @@ namespace slib {
         }
 
         SListIterator<SList<T>> end(){
-            return SListIterator<SList<T>>(m_head);
+            return SListIterator<SList<T>>(m_head->prev);
         }
 
         struct Node{
