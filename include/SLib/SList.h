@@ -79,21 +79,29 @@ namespace slib {
             m_head->next = m_head;
         }
 
-        SList(SList&& other) noexcept {
-            m_head = other.m_head;
-            other.m_head = nullptr;
-            m_size = other.m_size;
+        void swap(SList& other){
+            std::swap(m_head, other.m_head);
+            std::swap(m_size, other.m_size);
         }
 
-        /* TODO
+        SList(SList&& other) noexcept {
+            swap(other);
+        }
+
+        /*
         SList(const SList& other){
 
         }
         */
 
-        /* TODO
+        /*
         SList& operator=(const SList& other){
+            if (this == &other)
+                return *this;
 
+            //TODO
+
+            return *this;
         }
         */
 
@@ -101,9 +109,7 @@ namespace slib {
             if (this == &other)
                 return *this;
 
-            m_head = other.m_head;
-            other.m_head = nullptr;
-            m_size = other.m_size;
+            swap(other);
 
             return *this;
         }

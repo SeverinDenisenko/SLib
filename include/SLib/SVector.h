@@ -6,6 +6,7 @@
 #define SLIB_SVECTOR_H
 
 #include <cstdint>
+#include <utility>
 
 #include "SException.h"
 #include "SLog.h"
@@ -90,6 +91,12 @@ namespace slib {
             resize(size, value);
         }
 
+        void swap(SVector &other){
+            std::swap(m_ptr, other.m_ptr);
+            std::swap(m_size, other.m_size);
+            std::swap(m_capacity, other.m_capacity);
+        }
+
         SVector(const SVector &other) {
             reserve(other.m_capacity);
 
@@ -104,10 +111,7 @@ namespace slib {
         }
 
         SVector(SVector &&other) noexcept {
-            m_size = other.m_size;
-            m_capacity = other.m_capacity;
-            m_ptr = other.m_ptr;
-            other.m_ptr = nullptr;
+            swap(other);
         }
 
         SVector &operator=(const SVector &other) {
@@ -132,13 +136,7 @@ namespace slib {
             if (this == &other)
                 return *this;
 
-            m_capacity = other.m_capacity;
-            m_size = other.m_size;
-
-            _delete();
-
-            m_ptr = other.m_ptr;
-            other.m_ptr = nullptr;
+            swap(other);
 
             return *this;
         };
@@ -276,20 +274,6 @@ namespace slib {
             m_capacity = 10;
 
             reserve(m_capacity);
-        }
-
-        void swap(SVector &other) {
-            T *tmp_ptr = other.m_ptr;
-            other.m_ptr = m_ptr;
-            m_ptr = tmp_ptr;
-
-            T *tmp_size = other.m_size;
-            other.m_size = m_size;
-            m_size = tmp_size;
-
-            T *tmp_capacity = other.m_capacity;
-            other.m_capacity = m_capacity;
-            m_capacity = tmp_capacity;
         }
 
         SVectorIterator<SVector<T>> begin(){
