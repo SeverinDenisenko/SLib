@@ -206,12 +206,24 @@ namespace slib {
             return m_head->prev->value;
         }
 
+        const T& front() const{
+            return m_head->next->value;
+        }
+
+        const T& back() const{
+            return m_head->prev->value;
+        }
+
         SListIterator<SList<T>> begin(){
             return SListIterator<SList<T>>(m_head->next);
         }
 
         SListIterator<SList<T>> end(){
             return SListIterator<SList<T>>(m_head->prev);
+        }
+
+        bool empty(){
+            return m_size == 0;
         }
 
         struct Node{
