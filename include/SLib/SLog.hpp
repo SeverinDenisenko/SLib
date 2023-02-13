@@ -20,8 +20,8 @@ namespace slib {
             TRACE = 4
         };
 
-        explicit SLog(LogLevel logLevel) : logLevel(logLevel) {};
-        explicit SLog() : logLevel(WARNING) {};
+        explicit SLog(LogLevel logLevel) noexcept : logLevel(logLevel) {};
+        explicit SLog() noexcept : logLevel(WARNING) {};
 
         template<typename T>
         void Log(SLog::LogLevel level, const T& msg) const {

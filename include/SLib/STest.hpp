@@ -6,7 +6,8 @@
 #define SLIB_STEST_HPP
 
 #include <iostream>
-#include <list>
+
+#include "SList.hpp"
 
 namespace slib {
     class SUnitTest {
@@ -51,6 +52,8 @@ namespace slib {
 
     class STest {
     public:
+        STest() noexcept = default;
+
         void AddTest(SUnitTest *test) {
             tests.push_back(test);
         }
@@ -68,7 +71,7 @@ namespace slib {
         }
 
     private:
-        std::list<SUnitTest *> tests;
+        SList<SUnitTest *> tests;
     };
 
     STest sTest;

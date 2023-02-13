@@ -12,9 +12,9 @@ namespace slib{
     template<typename T>
     class SUniquePtr{
     public:
-        SUniquePtr() = default;
+        SUniquePtr() noexcept = default;
 
-        explicit SUniquePtr(T* ptr) : m_ptr(ptr) {}
+        explicit SUniquePtr(T* ptr) noexcept : m_ptr(ptr) {}
 
         ~SUniquePtr(){
             delete m_ptr;

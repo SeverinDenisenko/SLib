@@ -64,7 +64,7 @@ namespace slib {
         using size_type = size_t;
         using value_type = T;
 
-        SForwardList(){
+        SForwardList() noexcept {
             Node *ptr = reinterpret_cast<Node *>(new uint8_t[sizeof(Node)]);
             ptr->next = nullptr;
             m_head = ptr;

@@ -83,7 +83,7 @@ namespace slib {
         using size_type = size_t;
         using value_type = T;
 
-        SVector() {
+        SVector() noexcept {
             m_ptr = reinterpret_cast<T *>(new uint8_t[m_capacity * sizeof(T)]);
         }
 

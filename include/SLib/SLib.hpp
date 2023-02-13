@@ -6,5 +6,6 @@
 #define SLIB_SLIB_HPP
 
 #include "SLog.hpp"
+#include "STest.hpp"
 
 #endif //SLIB_SLIB_HPP
