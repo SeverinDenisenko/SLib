@@ -283,6 +283,10 @@ namespace slib {
         SVectorIterator<SVector<T>> end(){
             return SVectorIterator<SVector<T>>(m_ptr + m_size);
         }
+
+        SVectorIterator<SVector<T>> before_end(){
+            return SVectorIterator<SVector<T>>(m_ptr + m_size - 1);
+        }
     private:
         void _delete() {
             for (size_type j = 0; j < m_size; ++j) {

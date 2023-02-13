@@ -219,7 +219,15 @@ namespace slib {
         }
 
         SListIterator<SList<T>> end(){
+            return SListIterator<SList<T>>(m_head);
+        }
+
+        SListIterator<SList<T>> before_end(){
             return SListIterator<SList<T>>(m_head->prev);
+        }
+
+        SListIterator<SList<T>> before_begin(){
+            return SListIterator<SList<T>>(m_head);
         }
 
         bool empty(){
