@@ -114,6 +114,22 @@ namespace slib {
             return *this;
         }
 
+        ~SList(){
+            Node* curr = m_head->next;
+            Node* next;
+
+            while (curr != m_head){
+                next = curr->next;
+
+                curr->value.~T();
+                delete[] reinterpret_cast<uint8_t*>(curr);
+
+                curr = next;
+            }
+
+            delete[] reinterpret_cast<uint8_t*>(m_head);
+        }
+
         void push_back(const T& item){
             emplace_back(item);
         }

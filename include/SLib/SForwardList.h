@@ -89,6 +89,22 @@ namespace slib {
             return *this;
         }
 
+        ~SForwardList(){
+            Node* curr = m_head->next;
+            Node* next;
+
+            while (curr != nullptr){
+                next = curr->next;
+
+                curr->value.~T();
+                delete[] reinterpret_cast<uint8_t*>(curr);
+
+                curr = next;
+            }
+
+            delete[] reinterpret_cast<uint8_t*>(m_head);
+        }
+
         void push_front(const T& item){
             emplace_front(item);
         }

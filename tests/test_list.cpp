@@ -3,6 +3,7 @@
 //
 
 #include "SLib/SForwardList.h"
+#include "SLib/SList.h"
 #include "SLib/SLog.h"
 
 int main(){
@@ -22,6 +23,22 @@ int main(){
     list.pop_front();
 
     for (auto &item: list) {
+        S_INFO(std::to_string(item));
+    }
+
+    slib::SList<int> list1;
+
+    list1.push_front(1);
+    list1.push_front(2);
+    list1.push_front(3);
+    list1.push_front(4);
+    list1.push_front(5);
+    list1.push_front(7);
+    list1.push_front(8);
+    list1.push_front(9);
+    list1.pop_front();
+
+    for (auto &item: list1) {
         S_INFO(std::to_string(item));
     }
 
