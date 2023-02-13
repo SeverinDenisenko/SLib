@@ -63,6 +63,7 @@ namespace slib {
     public:
         using size_type = size_t;
         using value_type = T;
+        using Iterator = SForwardListIterator<SForwardList<T>>;
 
         SForwardList() noexcept {
             Node *ptr = reinterpret_cast<Node *>(new uint8_t[sizeof(Node)]);

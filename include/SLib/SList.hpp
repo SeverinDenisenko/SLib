@@ -72,6 +72,7 @@ namespace slib {
     public:
         using size_type = size_t;
         using value_type = T;
+        using Iterator = SListIterator<SList<T>>;
 
         SList() noexcept{
             m_head = reinterpret_cast<Node*>(new uint8_t[sizeof(Node)]);

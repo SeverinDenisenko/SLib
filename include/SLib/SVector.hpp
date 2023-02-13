@@ -82,6 +82,7 @@ namespace slib {
     public:
         using size_type = size_t;
         using value_type = T;
+        using Iterator = SVectorIterator<SVector<T>>;
 
         SVector() noexcept {
             m_ptr = reinterpret_cast<T *>(new uint8_t[m_capacity * sizeof(T)]);
@@ -265,6 +266,10 @@ namespace slib {
 
         [[nodiscard]] bool empty() const {
             return m_size == 0;
+        }
+
+        [[nodiscard]] size_type capacity() const{
+            return m_capacity;
         }
 
         void clear() {
