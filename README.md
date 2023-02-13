@@ -1,4 +1,4 @@
-# SLib – Severin Library
+# SLib – Severin Templates Library
 
 Implemented common functionality across projects.
 
