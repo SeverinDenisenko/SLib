@@ -64,7 +64,12 @@ namespace slib {
         using size_type = size_t;
         using value_type = T;
 
-        SForwardList() = default;
+        SForwardList(){
+            Node *ptr = reinterpret_cast<Node *>(new uint8_t[sizeof(Node)]);
+            ptr->next = nullptr;
+            m_head = ptr;
+            m_size = 0;
+        }
 
         void swap(SForwardList& other){
             std::swap(m_head, other.m_head);
@@ -92,7 +97,7 @@ namespace slib {
         void emplace_front(Args &&... args) {
             Node *ptr = reinterpret_cast<Node *>(new uint8_t[sizeof(Node)]);
 
-            ptr->next = m_head;
+            ptr->next = m_head->next;
             try {
                 new(&(ptr->value)) T(std::forward<Args>(args)...);
             } catch (...) {
@@ -100,7 +105,7 @@ namespace slib {
                 throw;
             }
 
-            m_head = ptr;
+            m_head->next = ptr;
             m_size++;
         }
 
@@ -130,21 +135,21 @@ namespace slib {
             if(m_head == nullptr)
                 throw SException("Can't pop_front 0-length forward list");
 
-            Node* ptr = m_head->next;
+            Node* ptr = m_head->next->next;
 
-            m_head->value.~T();
-            delete[] reinterpret_cast<uint8_t *>(m_head);
+            m_head->next->value.~T();
+            delete[] reinterpret_cast<uint8_t *>(m_head->next);
 
-            m_head = ptr;
+            m_head->next = ptr;
             m_size--;
         }
 
         T& front(){
-            return m_head->value;
+            return m_head->next->value;
         }
 
         const T& front() const{
-            return m_head->value;
+            return m_head->next->value;
         }
 
         bool empty(){
@@ -157,6 +162,10 @@ namespace slib {
         };
 
         SForwardListIterator<SForwardList<T>> begin(){
+            return SForwardListIterator<SForwardList<T>>(m_head->next);
+        }
+
+        SForwardListIterator<SForwardList<T>> before_begin(){
             return SForwardListIterator<SForwardList<T>>(m_head);
         }
 
