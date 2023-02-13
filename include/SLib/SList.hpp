@@ -2,8 +2,8 @@
 // Created by Severin on 08.02.2023.
 //
 
-#ifndef SLIB_SLIST_H
-#define SLIB_SLIST_H
+#ifndef SLIB_SLIST_HPP
+#define SLIB_SLIST_HPP
 
 #include <cstdint>
 #include <utility>
@@ -262,4 +262,4 @@ namespace slib {
 
 } // slib
 
-#endif //SLIB_SLIST_H
+#endif //SLIB_SLIST_HPP

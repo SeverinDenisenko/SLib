@@ -2,10 +2,11 @@
 // Created by Severin on 02.02.2023.
 //
 
-#ifndef SLIB_SLOG_H
-#define SLIB_SLOG_H
+#ifndef SLIB_SLOG_HPP
+#define SLIB_SLOG_HPP
 
 #include <string>
+#include <iostream>
 
 namespace slib {
 
@@ -22,7 +23,19 @@ namespace slib {
         explicit SLog(LogLevel logLevel) : logLevel(logLevel) {};
         explicit SLog() : logLevel(WARNING) {};
 
-        void Log(LogLevel level, const std::string& msg) const;
+        template<typename T>
+        void Log(SLog::LogLevel level, const T& msg) const {
+
+            const char * levelStrings[5] = {"[FATAL]: ", "[ERROR]: ", "[WARNING]: ", "[INFO]: ", "[TRACE]: "};
+
+            if(level > logLevel)
+                return;
+
+            if (level == LogLevel::FATAL || level == LogLevel::ERROR)
+                std::cerr << levelStrings[level] << msg << std::endl;
+            else
+                std::cout << levelStrings[level] << msg << std::endl;
+        }
 
         LogLevel logLevel;
     };
@@ -43,4 +56,4 @@ namespace slib {
 #define S_LOG_LEVEL_TRACE slib::slog.logLevel = slib::SLog::TRACE
 
 
-#endif //SLIB_SLOG_H
+#endif //SLIB_SLOG_HPP

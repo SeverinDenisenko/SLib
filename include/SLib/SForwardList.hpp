@@ -2,13 +2,13 @@
 // Created by Severin on 12.02.2023.
 //
 
-#ifndef SLIB_SFORWARDLIST_H
-#define SLIB_SFORWARDLIST_H
+#ifndef SLIB_SFORWARDLIST_HPP
+#define SLIB_SFORWARDLIST_HPP
 
 #include <cstdint>
 #include <utility>
 
-#include "SException.h"
+#include "SException.hpp"
 
 namespace slib {
 
@@ -196,4 +196,4 @@ namespace slib {
 
 } // slib
 
-#endif //SLIB_SFORWARDLIST_H
+#endif //SLIB_SFORWARDLIST_HPP

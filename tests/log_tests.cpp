@@ -1,4 +1,4 @@
-#include "SLib/SLib.h"
+#include "SLib/SLib.hpp"
 
 int main() {
     S_LOG_LEVEL_ERROR;

@@ -2,9 +2,9 @@
 // Created by Severin on 08.02.2023.
 //
 
-#include "SLib/SForwardList.h"
-#include "SLib/SList.h"
-#include "SLib/SLog.h"
+#include "SLib/SForwardList.hpp"
+#include "SLib/SList.hpp"
+#include "SLib/SLog.hpp"
 
 int main(){
     S_LOG_LEVEL_INFO;
@@ -23,7 +23,7 @@ int main(){
     list.pop_front();
 
     for (auto &item: list) {
-        S_INFO(std::to_string(item));
+        S_INFO(item);
     }
 
     slib::SList<int> list1;
@@ -39,7 +39,7 @@ int main(){
     list1.pop_front();
 
     for (auto &item: list1) {
-        S_INFO(std::to_string(item));
+        S_INFO(item);
     }
 
     return 0;

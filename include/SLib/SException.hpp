@@ -2,8 +2,8 @@
 // Created by Severin on 05.02.2023.
 //
 
-#ifndef SLIB_SEXCEPTION_H
-#define SLIB_SEXCEPTION_H
+#ifndef SLIB_SEXCEPTION_HPP
+#define SLIB_SEXCEPTION_HPP
 
 #include <string>
 #include <exception>
@@ -24,4 +24,4 @@ namespace slib {
 
 } // slib
 
-#endif //SLIB_SEXCEPTION_H
+#endif //SLIB_SEXCEPTION_HPP

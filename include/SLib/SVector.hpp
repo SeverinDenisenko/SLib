@@ -2,14 +2,14 @@
 // Created by Severin on 05.02.2023.
 //
 
-#ifndef SLIB_SVECTOR_H
-#define SLIB_SVECTOR_H
+#ifndef SLIB_SVECTOR_HPP
+#define SLIB_SVECTOR_HPP
 
 #include <cstdint>
 #include <utility>
 
-#include "SException.h"
-#include "SLog.h"
+#include "SException.hpp"
+#include "SLog.hpp"
 
 namespace slib {
 
@@ -310,4 +310,4 @@ namespace slib {
 
 } // slib
 
-#endif //SLIB_SVECTOR_H
+#endif //SLIB_SVECTOR_HPP

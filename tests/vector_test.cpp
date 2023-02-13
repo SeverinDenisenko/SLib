@@ -2,8 +2,8 @@
 // Created by Severin on 05.02.2023.
 //
 
-#include "SLib/SVector.h"
-#include "SLib/SLog.h"
+#include "SLib/SVector.hpp"
+#include "SLib/SLog.hpp"
 
 int main(){
     S_LOG_LEVEL_INFO;
@@ -24,7 +24,7 @@ int main(){
     vector1.resize(1000);
 
     for (auto &item: vector1) {
-        S_INFO(std::to_string(item));
+        S_INFO(item);
     }
 
     vector1.shrink_to_fit();

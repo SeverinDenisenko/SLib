@@ -2,8 +2,8 @@
 // Created by Severin on 06.02.2023.
 //
 
-#ifndef SLIB_SUNIQUEPTR_H
-#define SLIB_SUNIQUEPTR_H
+#ifndef SLIB_SUNIQUEPTR_HPP
+#define SLIB_SUNIQUEPTR_HPP
 
 #include <utility>
 
@@ -44,4 +44,4 @@ namespace slib{
     }
 }
 
-#endif //SLIB_SUNIQUEPTR_H
+#endif //SLIB_SUNIQUEPTR_HPP
