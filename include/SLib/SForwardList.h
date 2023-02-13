@@ -60,6 +60,7 @@ namespace slib {
 
     template <typename T>
     class SForwardList {
+    public:
         using size_type = size_t;
         using value_type = T;
 
@@ -103,8 +104,8 @@ namespace slib {
             m_size++;
         }
 
-        void insert_after(const T& item){
-            emplace_front(item);
+        void insert_after(SForwardListIterator<SForwardList<T>> iterator, const T& item){
+            emplace_after(iterator, item);
         }
 
         template<typename... Args>
@@ -156,11 +157,11 @@ namespace slib {
         };
 
         SForwardListIterator<SForwardList<T>> begin(){
-            return SListIterator<SForwardList<T>>(m_head);
+            return SForwardListIterator<SForwardList<T>>(m_head);
         }
 
         SForwardListIterator<SForwardList<T>> end(){
-            return SListIterator<SForwardList<T>>(nullptr);
+            return SForwardListIterator<SForwardList<T>>(nullptr);
         }
 
     private:
