@@ -2,46 +2,56 @@
 // Created by Severin on 08.02.2023.
 //
 
-#include "SLib/SForwardList.hpp"
 #include "SLib/SList.hpp"
-#include "SLib/SLog.hpp"
+#include "SLib/SLib.hpp"
+
+S_TEST(List, Creation){
+    slib::SList<int> list;
+    S_EXPECT_EQ(list.size(), 0u);
+}
+
+S_TEST(List, Iterator){
+    slib::SList<int> list;
+
+    for (int i = 1; i <= 100; ++i) {
+        list.push_back(i);
+    }
+    for (int i = 1; i <= 100; ++i) {
+        list.push_front(i);
+    }
+
+    int sum = 0;
+
+    for (auto item : list) {
+        sum += item;
+    }
+
+    S_EXPECT_EQ(sum, 10100);
+}
+
+S_TEST(List, Modifying){
+    slib::SList<int> list;
+
+    for (int i = 0; i < 5; ++i) {
+        list.push_back(i);
+    }
+    for (int i = 5; i < 10; ++i) {
+        list.push_front(i);
+    }
+
+    list.insert(list.begin(), 100);
+    list.insert(list.end(), 100);
+
+    S_EXPECT_EQ(*list.begin(), 100);
+    S_EXPECT_EQ(*list.before_end(), 100);
+}
 
 int main(){
-    S_LOG_LEVEL_INFO;
+    S_REGISTER_TEST(List, Creation);
+    S_REGISTER_TEST(List, Iterator);
+    S_REGISTER_TEST(List, Modifying);
 
-    slib::SForwardList<int> list;
-
-    list.push_front(1);
-    list.push_front(2);
-    list.push_front(3);
-    list.push_front(4);
-    list.push_front(5);
-    list.push_front(7);
-    list.push_front(8);
-    list.push_front(9);
-    list.insert_after(list.begin(), 10);
-    list.pop_front();
-
-    for (auto &item: list) {
-        S_INFO(item);
-    }
-
-    slib::SList<int> list1;
-
-    list1.push_front(1);
-    list1.push_front(2);
-    list1.push_front(3);
-    list1.push_front(4);
-    list1.push_front(5);
-    list1.push_front(7);
-    list1.push_front(8);
-    list1.push_front(9);
-    list1.pop_front();
-
-    for (auto &item: list1) {
-        S_INFO(item);
-    }
-
+    S_RUN_TESTS();
     return 0;
 }
 

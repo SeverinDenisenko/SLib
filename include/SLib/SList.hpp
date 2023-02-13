@@ -175,7 +175,7 @@ namespace slib {
 
         template<typename... Args>
         void insert(SListIterator<SList<T>> place, Args &&... args){
-            Node* place_ptr = place.m_node;
+            Node* place_ptr = place.m_node->prev;
 
             Node *ptr = reinterpret_cast<Node *>(new uint8_t[sizeof(Node)]);
 
