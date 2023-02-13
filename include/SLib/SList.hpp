@@ -250,6 +250,10 @@ namespace slib {
             return m_size == 0;
         }
 
+        size_type size(){
+            return m_size;
+        }
+
         struct Node{
             Node* prev;
             Node* next;

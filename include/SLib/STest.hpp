@@ -20,8 +20,8 @@ namespace slib {
 
         virtual ~SUnitTest() = default;
 
-        template<typename T>
-        void ExpectEquality(const T &a, const T &b) {
+        template<typename T, typename U>
+        void ExpectEquality(const T &a, const U &b) {
             if (a == b){
                 PrintSuccess();
                 return;
@@ -31,8 +31,8 @@ namespace slib {
             std::cerr << "Expected: " << a << ". Actual: " << b << "." << std::endl;
         }
 
-        template<typename T>
-        void ExpectEqualitySilent(const T &a, const T &b) {
+        template<typename T, typename U>
+        void ExpectEqualitySilent(const T &a, const U &b) {
             if (a == b){
                 PrintSuccess();
                 return;
