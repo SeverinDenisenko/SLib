@@ -45,9 +45,9 @@ namespace slib {
         template<class Class>
         struct has_ostream_operator_impl {
             template<class V>
-            static auto test(V*) -> decltype(std::declval<std::ostream>() << std::declval<V>());
+            static auto test(V*) -> decltype(std::declval<std::ostream>() << std::declval<V>()){};
             template<typename>
-            static auto test(...) -> std::false_type;
+            static auto test(...) -> std::false_type {};
 
             using type = typename std::is_same<std::ostream&, decltype(test<Class>(0))>::type;
         };
