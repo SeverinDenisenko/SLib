@@ -46,10 +46,29 @@ S_TEST(List, Modifying){
     S_EXPECT_EQ(*list.before_end(), 100);
 }
 
+S_TEST(List, CopyMove){
+    slib::SList<int> list;
+
+    for (int i = 1; i <= 100; ++i) {
+        list.push_back(i);
+    }
+
+    slib::SList<int> list2(list);
+
+    S_EXPECT_EQ(*list2.begin(), 1);
+    S_EXPECT_EQ(*list2.before_end(), 100);
+
+    slib::SList<int> list3(std::move(list2));
+
+    S_EXPECT_EQ(*list3.begin(), 1);
+    S_EXPECT_EQ(*list3.before_end(), 100);
+}
+
 int main(){
     S_REGISTER_TEST(List, Creation);
     S_REGISTER_TEST(List, Iterator);
     S_REGISTER_TEST(List, Modifying);
+    S_REGISTER_TEST(List, CopyMove);
 
     S_RUN_TESTS();
     return 0;
