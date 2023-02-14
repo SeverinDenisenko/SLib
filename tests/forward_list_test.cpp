@@ -39,10 +39,22 @@ S_TEST(FrowardList, Iterator){
     S_EXPECT_EQ(sum, 5050);
 }
 
+S_TEST(ForwardList, CopyMove){
+    slib::SForwardList<int> list;
+
+    for (int i = 1; i <= 100; ++i) {
+        list.push_front(i);
+    }
+
+    slib::SForwardList<int> list2(std::move(list));
+    S_EXPECT_EQ(*list2.begin(), 100);
+}
+
 int main(){
     S_REGISTER_TEST(FrowardList, Creation);
     S_REGISTER_TEST(FrowardList, Modifying);
     S_REGISTER_TEST(FrowardList, Iterator);
+    S_REGISTER_TEST(ForwardList, CopyMove);
 
     S_RUN_TESTS();
 }

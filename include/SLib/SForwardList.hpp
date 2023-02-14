@@ -66,10 +66,7 @@ namespace slib {
         using Iterator = SForwardListIterator<SForwardList<T>>;
 
         SForwardList() noexcept {
-            Node *ptr = reinterpret_cast<Node *>(new uint8_t[sizeof(Node)]);
-            ptr->next = nullptr;
-            m_head = ptr;
-            m_size = 0;
+            _create();
         }
 
         void swap(SForwardList& other){
@@ -78,6 +75,7 @@ namespace slib {
         }
 
         SForwardList(SForwardList&& other) noexcept {
+            _create();
             swap(other);
         }
 
@@ -85,25 +83,14 @@ namespace slib {
             if (this == &other)
                 return *this;
 
+            _create();
             swap(other);
 
             return *this;
         }
 
         ~SForwardList(){
-            Node* curr = m_head->next;
-            Node* next;
-
-            while (curr != nullptr){
-                next = curr->next;
-
-                curr->value.~T();
-                delete[] reinterpret_cast<uint8_t*>(curr);
-
-                curr = next;
-            }
-
-            delete[] reinterpret_cast<uint8_t*>(m_head);
+            _delete();
         }
 
         void push_front(const T& item){
@@ -195,6 +182,29 @@ namespace slib {
         }
 
     private:
+        void _delete(){
+            Node* curr = m_head->next;
+            Node* next;
+
+            while (curr != nullptr){
+                next = curr->next;
+
+                curr->value.~T();
+                delete[] reinterpret_cast<uint8_t*>(curr);
+
+                curr = next;
+            }
+
+            delete[] reinterpret_cast<uint8_t*>(m_head);
+        }
+
+        void _create(){
+            Node *ptr = reinterpret_cast<Node *>(new uint8_t[sizeof(Node)]);
+            ptr->next = nullptr;
+            m_head = ptr;
+            m_size = 0;
+        }
+
         Node* m_head = nullptr;
         size_type m_size = 0;
     };
