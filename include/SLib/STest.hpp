@@ -14,9 +14,9 @@ namespace slib {
     public:
         virtual void Run() = 0;
 
-        virtual std::string GetModule() const = 0;
+        [[nodiscard]] virtual std::string GetModule() const = 0;
 
-        virtual std::string GetName() const = 0;
+        [[nodiscard]] virtual std::string GetName() const = 0;
 
         virtual ~SUnitTest() = default;
 
