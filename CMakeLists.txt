@@ -13,5 +13,5 @@ add_executable(test_log tests/log.cpp)
 add_executable(test_vector tests/vector.cpp)
 add_executable(test_list tests/list.cpp)
 add_executable(test_test tests/test.cpp)
-add_executable(forward_list_test tests/forward_list.cpp)
-
+add_executable(test_forward_list tests/forward_list.cpp)
+add_executable(test_unique_ptr tests/unique_ptr.cpp)
