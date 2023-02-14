@@ -29,7 +29,7 @@ namespace slib {
 
             PrintFail();
             if constexpr(has_ostream_operator<T>::value && has_ostream_operator<U>::value){
-                std::cerr << "Expected: " << a << ". Actual: " << b << "." << std::endl;
+                std::cerr << "Actual: " << a << ". Expected: " << b << "." << std::endl;
             }
         }
 

@@ -34,12 +34,31 @@ namespace slib{
             other.m_ptr = nullptr;
         }
 
+        T* get(){
+            return m_ptr;
+        }
+
+        T& operator*() const{
+            return *get();
+        }
+
+        T* operator->() const{
+            return get();
+        }
+
+        T& operator*(){
+            return *get();
+        }
+
+        T* operator->(){
+            return get();
+        }
     private:
         T* m_ptr = nullptr;
     };
 
     template<typename T, typename... Args>
-    SUniquePtr<T> make_unique(Args&&... args){
+    SUniquePtr<T> MakeUnique(Args&&... args){
         return SUniquePtr<T>(new T(std::forward<Args>(args)...));
     }
 }

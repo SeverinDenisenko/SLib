@@ -54,6 +54,14 @@ namespace slib {
         T* operator->() const{
             return get();
         }
+
+        T& operator*(){
+            return *get();
+        }
+
+        T* operator->(){
+            return get();
+        }
     private:
         class SSharedPtrContainer {
         public:
@@ -77,6 +85,11 @@ namespace slib {
 
         SSharedPtrContainer* m_container;
     };
+
+    template<typename T, typename... Args>
+    SSharedPtr<T> MakeShared(Args&&... args){
+        return SSharedPtr<T>(new T(std::forward<Args>(args)...));
+    }
 
 } // slib
 
