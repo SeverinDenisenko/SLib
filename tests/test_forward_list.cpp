@@ -22,6 +22,11 @@ S_TEST(FrowardList, Modifying){
     list.pop_front();
 
     S_EXPECT_EQ(*list.begin(), 98);
+
+    list.insert_after(list.before_begin(), 999);
+    S_EXPECT_EQ(*list.begin(), 999);
+    list.insert_after(list.begin(), 888);
+    S_EXPECT_EQ(*++list.begin(), 888);
 }
 
 S_TEST(FrowardList, Iterator){
