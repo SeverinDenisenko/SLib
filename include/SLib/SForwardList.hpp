@@ -181,6 +181,22 @@ namespace slib {
             return SForwardListIterator<SForwardList<T>>(nullptr);
         }
 
+        void reverse(){
+            Node* curr = m_head->next;
+            Node* prev = nullptr;
+            Node* next = nullptr;
+
+            while(curr != nullptr){
+                next = curr->next;
+
+                curr->next = prev;
+
+                prev = curr;
+                curr = next;
+            }
+
+            m_head->next = prev;
+        }
     private:
         void _delete(){
             Node* curr = m_head->next;
