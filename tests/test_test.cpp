@@ -4,27 +4,30 @@
 
 #include "SLib/STest.hpp"
 
+#include <vector>
+
 S_TEST(Equality, First){
     S_EXPECT_EQ(2, 4);
 }
 
-S_TEST(Equality, Second){
-    S_EXPECT_EQUALITY(2, 4); // The same as S_EXPECT_EQ but don't write to console
-}
-
 S_TEST(Equality, Fourth){
-    S_EXPECT_EQ(2, 2);
-}
+    struct hello{
+        int value;
 
-S_TEST(Equality, Fifth){
-    S_EXPECT_EQUALITY(4, 4);
+        bool operator==(const hello& other) const{
+            return value==other.value;
+        }
+    };
+
+    hello a{10};
+    hello b{11};
+
+    S_EXPECT_EQ(a, b);
 }
 
 int main() {
     S_REGISTER_TEST(Equality, First);
-    S_REGISTER_TEST(Equality, Second);
     S_REGISTER_TEST(Equality, Fourth);
-    S_REGISTER_TEST(Equality, Fifth);
 
     S_RUN_TESTS();
     return 0;
