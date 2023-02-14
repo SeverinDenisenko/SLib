@@ -281,15 +281,15 @@ namespace slib {
             reserve(m_capacity);
         }
 
-        SVectorIterator<SVector<T>> begin(){
+        SVectorIterator<SVector<T>> begin() const{
             return SVectorIterator<SVector<T>>(m_ptr);
         }
 
-        SVectorIterator<SVector<T>> end(){
+        SVectorIterator<SVector<T>> end() const{
             return SVectorIterator<SVector<T>>(m_ptr + m_size);
         }
 
-        SVectorIterator<SVector<T>> before_end(){
+        SVectorIterator<SVector<T>> before_end() const{
             return SVectorIterator<SVector<T>>(m_ptr + m_size - 1);
         }
     private:

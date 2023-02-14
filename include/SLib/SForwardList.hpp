@@ -169,11 +169,11 @@ namespace slib {
             return m_head->next->value;
         }
 
-        bool empty(){
+        [[nodiscard]] bool empty() const{
             return m_size == 0;
         }
 
-        size_type size(){
+        [[nodiscard]] size_type size() const{
             return m_size;
         }
 
@@ -182,15 +182,15 @@ namespace slib {
             T value;
         };
 
-        SForwardListIterator<SForwardList<T>> begin(){
+        SForwardListIterator<SForwardList<T>> begin() const{
             return SForwardListIterator<SForwardList<T>>(m_head->next);
         }
 
-        SForwardListIterator<SForwardList<T>> before_begin(){
+        SForwardListIterator<SForwardList<T>> before_begin() const{
             return SForwardListIterator<SForwardList<T>>(m_head);
         }
 
-        SForwardListIterator<SForwardList<T>> end(){
+        SForwardListIterator<SForwardList<T>> end() const{
             return SForwardListIterator<SForwardList<T>>(nullptr);
         }
 

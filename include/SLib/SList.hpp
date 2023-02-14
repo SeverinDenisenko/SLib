@@ -231,27 +231,27 @@ namespace slib {
             return m_head->prev->value;
         }
 
-        SListIterator<SList<T>> begin(){
+        SListIterator<SList<T>> begin() const{
             return SListIterator<SList<T>>(m_head->next);
         }
 
-        SListIterator<SList<T>> end(){
+        SListIterator<SList<T>> end() const{
             return SListIterator<SList<T>>(m_head);
         }
 
-        SListIterator<SList<T>> before_end(){
+        SListIterator<SList<T>> before_end() const{
             return SListIterator<SList<T>>(m_head->prev);
         }
 
-        SListIterator<SList<T>> before_begin(){
+        SListIterator<SList<T>> before_begin() const{
             return SListIterator<SList<T>>(m_head);
         }
 
-        bool empty(){
+        [[nodiscard]] bool empty() const{
             return m_size == 0;
         }
 
-        size_type size(){
+        [[nodiscard]] size_type size() const{
             return m_size;
         }
 
