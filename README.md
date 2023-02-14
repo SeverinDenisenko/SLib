@@ -12,4 +12,5 @@ Implemented common functionality across projects.
 * * SList - Double-linked list (analogous to std::list)
 * * SForwardList - Single-linked list (analogous to std::forward_list)
 * Other
-* * SUniquePtr - RAII wrapper around raw pointer (std::unique_ptr)
+* * SUniquePtr - RAII wrapper around raw pointer (analogous std::unique_ptr)
+* * SSharedPtr - RAII wrapper around raw pointer (analogous std::shred_ptr but without weak counter)
