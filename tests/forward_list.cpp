@@ -68,12 +68,26 @@ S_TEST(ForwardList, Reverse){
     S_EXPECT_EQ(*++list.begin(), 2);
 }
 
+S_TEST(ForwardList, Copy){
+    slib::SForwardList<int> list;
+
+    for (int i = 1; i <= 100; ++i) {
+        list.push_front(i);
+    }
+
+    slib::SForwardList<int> list1(list);
+
+    S_EXPECT_EQ(*list1.begin(), 100);
+    S_EXPECT_EQ(*++list1.begin(), 99);
+}
+
 int main(){
     S_REGISTER_TEST(FrowardList, Creation);
     S_REGISTER_TEST(FrowardList, Modifying);
     S_REGISTER_TEST(FrowardList, Iterator);
     S_REGISTER_TEST(ForwardList, Move);
     S_REGISTER_TEST(ForwardList, Reverse);
+    S_REGISTER_TEST(ForwardList, Copy);
 
     S_RUN_TESTS();
 }

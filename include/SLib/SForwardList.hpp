@@ -79,12 +79,48 @@ namespace slib {
             swap(other);
         }
 
+        SForwardList(SForwardList& other) {
+            _create();
+
+            try{
+                for (auto& i: other) {
+                    emplace_front(i);
+                }
+            } catch (...){
+                _delete();
+                throw;
+            }
+
+            reverse();
+        }
+
         SForwardList& operator=(SForwardList&& other) noexcept {
             if (this == &other)
                 return *this;
 
             _create();
             swap(other);
+
+            return *this;
+        }
+
+        SForwardList& operator=(const SForwardList& other) {
+            if (this == &other)
+                return *this;
+
+            _delete();
+            _create();
+
+            try{
+                for (auto& i: other) {
+                    emplace_front(i);
+                }
+            } catch (...){
+                _delete();
+                throw;
+            }
+
+            reverse();
 
             return *this;
         }
