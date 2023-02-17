@@ -31,10 +31,23 @@ namespace slib {
             if(level > logLevel)
                 return;
 
-            if (level == LogLevel::FATAL || level == LogLevel::ERROR)
-                std::cerr << levelStrings[level] << msg << std::endl;
-            else
-                std::cout << levelStrings[level] << msg << std::endl;
+            switch (level) {
+                case FATAL:
+                    std::cerr << "\033[41m" << "\033[30m"  << levelStrings[level] << msg << "\033[0m"  << std::endl;
+                    break;
+                case ERROR:
+                    std::cerr << "\033[42m" << "\033[30m"  << levelStrings[level] << msg << "\033[0m"  << std::endl;
+                    break;
+                case WARNING:
+                    std::cerr << "\033[105m" << "\033[30m"  << levelStrings[level] << msg << "\033[0m"  << std::endl;
+                    break;
+                case INFO:
+                    std::cout << "\033[44m" << "\033[30m" << levelStrings[level] << msg << "\033[0m" << std::endl;
+                    break;
+                case TRACE:
+                    std::cout << "\033[47m" << "\033[30m" << levelStrings[level] << msg << "\033[0m" << std::endl;
+                    break;
+            }
         }
 
         LogLevel logLevel;
